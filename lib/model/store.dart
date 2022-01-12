@@ -10,26 +10,30 @@ class Store {
     required this.stockAt,
     required this.type,
   });
-  late final String addr;
-  late final String code;
-  late final String createdAt;
-  late final num lat;
-  late final num lng;
+  final String addr;
+  final String code;
+  final String createdAt;
+  final num lat;
+  final num lng;
   late final String name;
-  late final String remainStat;
-  late final String stockAt;
+  final String remainStat;
+  final String stockAt;
   late final String type;
 
-  Store.fromJson(Map<String, dynamic> json) {
-    addr = json['addr'];
-    code = json['code'];
-    createdAt = json['created_at'];
-    lat = json['lat'];
-    lng = json['lng'];
-    name = json['name'];
-    remainStat = json['remain_stat'];
-    stockAt = json['stock_at'];
-    type = json['type'];
+  factory Store.fromJson(
+      Map<String, dynamic> json) //: addr = json['addr'] ?? 'dsf', ;
+  {
+    return Store(
+      addr: json['addr'],
+      code: json['code'],
+      createdAt: json['created_at'] ?? '정보 없음',
+      lat: json['lat'],
+      lng: json['lng'],
+      name: json['name'],
+      remainStat: json['remain_stat'] ?? '매진',
+      stockAt: json['stock_at'] ?? '정보 없음',
+      type: json['type'],
+    );
   }
 
   Map<String, dynamic> toJson() {
