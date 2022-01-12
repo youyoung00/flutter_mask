@@ -40,9 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // setState(() {
     //   isLoading = true;
     // });
-    storeRepository.fetch().then((stores) {
+    storeRepository.fetch().then((value) {
       setState(() {
-        stores = stores;
+        stores = value;
       });
     });
   }
@@ -59,9 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              storeRepository.fetch().then((stores) {
+              storeRepository.fetch().then((e) {
                 setState(() {
-                  stores = stores;
+                  stores = e;
                 });
               });
             },
