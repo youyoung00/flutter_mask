@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mask/model/store.dart';
-import 'package:flutter_mask/repository/store_repository.dart';
+import 'package:flutter_mask/view_model/store_model.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider.value(
+      value: StoreModel(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -29,10 +35,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Store> stores = [];
-  bool isLoading = true;
+  // List<Store> stores = [];
+  bool isLoading = false;
 
-  final storeRepository = StoreRepository();
+  // final storeRepository = StoreRepository();
 
   @override
   void initState() {
@@ -40,18 +46,20 @@ class _MyHomePageState extends State<MyHomePage> {
     // setState(() {
     //   isLoading = true;
     // });
-    storeRepository.fetch().then((value) {
-      setState(() {
-        stores = value;
-      });
-    });
+    // storeRepository.fetch().then((value) {
+    //   setState(() {
+    //     stores = value;
+    //   });
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
+    final storeModel = Provider.of<StoreModel>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('마스크 재고 있는 곳 : ${stores.where((e) {
+        title: Text('마스크 재고 있는 곳 : ${storeModel.stores.where((e) {
           return e.remainStat == 'plenty' ||
               e.remainStat == 'some' ||
               e.remainStat == 'few';
@@ -59,11 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              storeRepository.fetch().then((e) {
-                setState(() {
-                  stores = e;
-                });
-              });
+              storeModel.fetch();
             },
             icon: const Icon(Icons.refresh),
           ),
@@ -72,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: isLoading
           ? loadingWidget()
           : ListView(
-              children: stores
+              children: storeModel.stores
                   .where((e) {
                     return e.remainStat == 'plenty' ||
                         e.remainStat == 'some' ||
