@@ -9,12 +9,14 @@ class Store {
     required this.remainStat,
     required this.stockAt,
     required this.type,
+    required this.km,
   });
+  num km;
   final String addr;
   final String code;
   final String createdAt;
-  final num lat;
-  final num lng;
+  final double lat;
+  final double lng;
   late final String name;
   final String remainStat;
   final String stockAt;
@@ -24,6 +26,7 @@ class Store {
       Map<String, dynamic> json) //: addr = json['addr'] ?? 'dsf', ;
   {
     return Store(
+      km: 0,
       addr: json['addr'],
       code: json['code'],
       createdAt: json['created_at'] ?? '정보 없음',

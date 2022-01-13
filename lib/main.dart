@@ -3,10 +3,13 @@ import 'package:flutter_mask/ui/view/main_page.dart';
 import 'package:flutter_mask/view_model/store_model.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(ChangeNotifierProvider.value(
-      value: StoreModel(),
-      child: const MyApp(),
-    ));
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(ChangeNotifierProvider.value(
+    value: StoreModel(),
+    child: const MyApp(),
+  ));
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

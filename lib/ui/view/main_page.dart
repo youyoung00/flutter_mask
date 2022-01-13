@@ -22,19 +22,11 @@ class MainPage extends StatelessWidget {
           ),
         ],
       ),
-      body: storeModel.isLoading
+      body: storeModel.isLoading == true
           ? loadingWidget()
           : ListView(
               children: storeModel.stores.map<Widget>((e) {
-                return ListTile(
-                  title: Text(
-                    e.name,
-                  ),
-                  subtitle: Text(e.addr),
-                  trailing: RemainStatListTile(
-                    store: e,
-                  ),
-                );
+                return RemainStatListTile(store: e);
               }).toList(),
             ),
     );
